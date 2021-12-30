@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const port = 3000
+const port = process.env.PORT || 3000
 const app = express()
 
 // Custom Modules
@@ -19,6 +19,7 @@ app.get('', (req, res) => {
     productsModule.getAllProducts((err, products) => {
         if (err) return res.status(500).send('Some error ocurred');
         if(products.length === 0) return res.status(500).send('Some Error Ocurred');
+        console.log(products);
         const parsedProducts = JSON.parse(products);
         return res.render('pages/index', {products: parsedProducts});
     });
